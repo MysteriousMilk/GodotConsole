@@ -1,0 +1,3 @@
+[submodule "GodotLogging"]
+	path = GodotLogging
+	url = https://github.com/MysteriousMilk/GodotLogging
