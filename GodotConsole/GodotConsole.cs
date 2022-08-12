@@ -185,6 +185,9 @@ namespace Godot.Console
 
             GD.Print(Instance.currentCmdIndex);
 
+            if (Instance.recentCommands.Count == 0)
+                return string.Empty;
+
             Instance.currentCmdIndex = Math.Max(Instance.currentCmdIndex - 1, 0);
             command = Instance.recentCommands[Instance.currentCmdIndex];
 
@@ -200,6 +203,9 @@ namespace Godot.Console
             string command = string.Empty;
 
             GD.Print(Instance.currentCmdIndex);
+
+            if (Instance.recentCommands.Count == 0)
+                return string.Empty;
 
             Instance.currentCmdIndex = Math.Min(Instance.currentCmdIndex + 1, Instance.recentCommands.Count - 1);
             command = Instance.recentCommands[Instance.currentCmdIndex];
