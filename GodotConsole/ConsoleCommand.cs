@@ -5,9 +5,9 @@ namespace Godot.Console
     /// <summary>
     /// Represents a command which can be used by the <see cref="GodotConsole"/> system.
     /// </summary>
-    public class GodotCommand
+    public class ConsoleCommand
     {
-        private Action<string, object[]> cmdAction;
+        protected Action<ConsoleCommand, object[]> cmdAction;
 
         /// <summary>
         /// Command text used to invoke the command.
@@ -19,11 +19,11 @@ namespace Godot.Console
         }
 
         /// <summary>
-        /// Constructor for a <see cref="GodotCommand"/>.
+        /// Constructor for a <see cref="ConsoleCommand"/>.
         /// </summary>
         /// <param name="command">Text used to invoke the command.</param>
         /// <param name="action">Delegate to a method to invoke when the command is performed.</param>
-        public GodotCommand(string command, Action<string, object[]> action)
+        public ConsoleCommand(string command, Action<ConsoleCommand, object[]> action)
         {
             CommandText = command;
             cmdAction = action;
@@ -36,7 +36,7 @@ namespace Godot.Console
         public void Invoke(object[] args)
         {
             if (cmdAction != null)
-                cmdAction.Invoke(CommandText, args);
+                cmdAction.Invoke(this, args);
         }
     }
 }

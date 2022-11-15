@@ -19,7 +19,7 @@ namespace Godot.Console
 
         private GodotConsole()
         {
-            consoleCommands = new Dictionary<string, GodotCommand>();
+            consoleCommands = new Dictionary<string, ConsoleCommand>();
             recentCommands = new List<string>();
         }
 
@@ -31,7 +31,7 @@ namespace Godot.Console
 
         internal List<string> recentCommands;
         internal int currentCmdIndex = 0;
-        internal Dictionary<string, GodotCommand> consoleCommands;
+        internal Dictionary<string, ConsoleCommand> consoleCommands;
         internal MemoryTarget consoleLogTarget;
 
         /// <summary>
@@ -99,12 +99,12 @@ namespace Godot.Console
         /// </summary>
         /// <param name="commandName">The name of the command to retrieve.</param>
         /// <returns>The command.</returns>
-        public static GodotCommand GetCommand(string commandName)
+        public static ConsoleCommand GetCommand(string commandName)
         {
             if (!Instance.IsCaseSensitive)
                 commandName = commandName.ToLower();
 
-            Instance.consoleCommands.TryGetValue(commandName, out GodotCommand cmd);
+            Instance.consoleCommands.TryGetValue(commandName, out ConsoleCommand cmd);
             return cmd;
         }
 
@@ -117,16 +117,42 @@ namespace Godot.Console
         /// The first parameter is the command name as a string. The second parameter is 
         /// the passed command arguments.
         /// </param>
-        public static void RegisterCommand(string commandName, Action<string, object[]> commandAction)
+        public static void RegisterCommand(string commandName, Action<ConsoleCommand, object[]> commandAction)
         {
-            if (!Instance.IsCaseSensitive)
-                commandName = commandName.ToLower();
+            string cmd = commandName;
 
-            if (Instance.consoleCommands.ContainsKey(commandName))
+            if (!Instance.IsCaseSensitive)
+                cmd = cmd.ToLower();
+
+            if (Instance.consoleCommands.ContainsKey(cmd))
                 throw new InvalidOperationException("Attempt to register console command which has already been registered.");
 
-            GodotCommand gdCmd = new GodotCommand(commandName, commandAction);
-            Instance.consoleCommands.Add(commandName, gdCmd);
+            ConsoleCommand gdCmd = new ConsoleCommand(cmd, commandAction);
+            Instance.consoleCommands.Add(cmd, gdCmd);
+        }
+
+        /// <summary>
+        /// Registers a variable with the console system.
+        /// </summary>
+        /// <param name="variableName">The name of the variable.</param>
+        /// <param name="defaultValue">The default value for the variable when the system starts up.</param>
+        /// <param name="commandAction">
+        /// The function delegate to execute when the command is invoked.
+        /// The first parameter is the command name as a string. The second parameter is 
+        /// the passed command arguments.
+        /// </param>
+        public static void RegisterVariable<T>(string variableName, T defaultValue,  Action<ConsoleCommand, object[]> commandAction)
+        {
+            string cmd = variableName;
+
+            if (!Instance.IsCaseSensitive)
+                cmd = cmd.ToLower();
+
+            if (Instance.consoleCommands.ContainsKey(cmd))
+                throw new InvalidOperationException("Attempt to register console command which has already been registered.");
+
+            ConsoleVariable<T> gdVar = new ConsoleVariable<T>(cmd, defaultValue, commandAction);
+            Instance.consoleCommands.Add(cmd, gdVar);
         }
 
         /// <summary>
@@ -139,9 +165,24 @@ namespace Godot.Console
             var command = GetCommand(commandName);
 
             if (command != null)
-                command.Invoke(args);
+            {
+                if (args.Length < 1)
+                {
+                    Instance.LogConsoleVariable(command.CommandText);
+                    return;
+                }
+
+                if (!Instance.CompareToConsoleVariable(command.CommandText, args[0]))
+                {
+                    Instance.UpdateConsoleVariable(command.CommandText, args[0]);
+
+                    command.Invoke(args);
+                }
+            }
             else
+            {
                 GodotLogger.LogWarning("Command \'" + commandName + "\' is not a valid command.");
+            }
         }
 
         /// <summary>
@@ -211,6 +252,37 @@ namespace Godot.Console
             command = Instance.recentCommands[Instance.currentCmdIndex];
 
             return command;
+        }
+
+        private bool CompareToConsoleVariable(string command, object val)
+        {
+            bool compare = false;
+            if (consoleCommands.TryGetValue(command, out ConsoleCommand val2))
+            {
+                if (val2 is IConsoleVariable cvar)
+                {
+                    compare = cvar.Compare(val);
+                }
+            }
+            return compare;
+        }
+
+        private void UpdateConsoleVariable(string command, object val)
+        {
+            if (consoleCommands.ContainsKey(command) &&
+                consoleCommands[command] is IConsoleVariable cvar)
+            {
+                cvar.SetValue(val);
+            }
+        }
+
+        private void LogConsoleVariable(string command)
+        {
+            if (consoleCommands.ContainsKey(command) &&
+                consoleCommands[command] is IConsoleVariable cvar)
+            {
+                GodotLogger.LogCommand(cvar.ToString());
+            }
         }
     }
 }
