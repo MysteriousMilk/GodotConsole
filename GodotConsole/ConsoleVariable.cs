@@ -17,7 +17,7 @@ namespace Godot.Console
     /// <summary>
     /// Represents a command variable which can be used by the <see cref="ConsoleCommand"/> system.
     /// </summary>
-    public class ConsoleVariable<T> : ConsoleCommand, IConsoleVariable
+    public partial class ConsoleVariable<T> : ConsoleCommand, IConsoleVariable
     {
         /// <summary>
         /// The current value of the console variable.

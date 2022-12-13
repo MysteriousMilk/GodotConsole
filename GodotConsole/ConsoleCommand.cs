@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 
 namespace Godot.Console
 {
     /// <summary>
     /// Represents a command which can be used by the <see cref="GodotConsole"/> system.
     /// </summary>
-    public class ConsoleCommand
+    public partial class ConsoleCommand
     {
         protected Action<ConsoleCommand, object[]> cmdAction;
 
