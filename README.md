@@ -1,6 +1,9 @@
 # GodotConsole
 C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the Mono version of Godot (C#). Just drop the code in with your main project and you can start building a console and commands right away. See below for usage examples.
 
+## Repository
+The main branch [*origin/main*] will be kept in line with the latest release of Godot. Currently it is syncing with the latest Godot 4 beta. There is a release for the Godot 3.5.x line.
+
 ## Usage
 Set up an in-memory logger for the console. Here we will use a BBTextTarget so custom formatting can be included when displaying in the UI.
 ```C#
