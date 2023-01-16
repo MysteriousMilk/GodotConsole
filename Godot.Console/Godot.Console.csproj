@@ -1,0 +1,12 @@
+<Project Sdk="Godot.NET.Sdk/4.0.0-beta.12">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>Godot.Console</RootNamespace>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" />
+  </ItemGroup>
+</Project>
