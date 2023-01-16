@@ -1,3 +1,3 @@
-[submodule "GodotLogging"]
-	path = GodotLogging
-	url = https://github.com/MysteriousMilk/GodotLogging
+[submodule "Godot.Logging"]
+	path = Godot.Logging
+	url = https://github.com/MysteriousMilk/GodotLogging.git
