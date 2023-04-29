@@ -89,10 +89,8 @@ namespace Godot.Console
         /// Links the console to a logging MemoryTarget.
         /// </summary>
         /// <param name="target">The logging MemoryTarget.</param>
-        public static void SetLogTarget(MemoryTarget target)
-        {
+        public static void SetLogTarget(MemoryTarget target) =>
             Instance.consoleLogTarget = target;
-        }
 
         /// <summary>
         /// Retrieves a registered command by name.
