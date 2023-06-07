@@ -33,10 +33,6 @@ namespace Godot.Console
         /// Runs the command by invoking the assigned action delegate.
         /// </summary>
         /// <param name="args">Arguments to be passed to the invoked method.</param>
-        public void Invoke(object[] args)
-        {
-            if (cmdAction != null)
-                cmdAction.Invoke(this, args);
-        }
+        public void Invoke(object[] args) => cmdAction?.Invoke(this, args);
     }
 }
