@@ -1,4 +1,6 @@
 # GodotConsole
+[![NuGet version (Godot.Logging)](https://img.shields.io/badge/nuget-v1.1.1-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.1.1/)
+
 C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the Mono version of Godot (C#). Just drop the code in with your main project and you can start building a console and commands right away. See below for usage examples.
 
 ## Repository
