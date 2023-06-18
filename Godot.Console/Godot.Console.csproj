@@ -1,12 +1,31 @@
-<Project Sdk="Godot.NET.Sdk/4.0.2">
+﻿<Project Sdk="Godot.NET.Sdk/4.0.2">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Godot.Console</RootNamespace>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <Title>Godot Console</Title>
+    <Version>$(AssemblyVersion)</Version>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>Godot;Godot4;gamedev;Game Development;C#</PackageTags>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MysteriousMilk/GodotConsole</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" />
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" Condition=" '$(Configuration)'!='ExportRelease' " />
+    <PackageReference Include="Godot.Logging" Version="1.1.1" Condition=" '$(Configuration)'=='ExportRelease' " />
   </ItemGroup>
 </Project>
