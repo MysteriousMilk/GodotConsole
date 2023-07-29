@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Godot.Logging;
 
 namespace Godot.Console
@@ -12,6 +9,7 @@ namespace Godot.Console
         bool Compare(object val);
         object GetValue();
         void SetValue(object val);
+        Type GetValueType();
     }
 
     /// <summary>
@@ -37,6 +35,11 @@ namespace Godot.Console
         public ConsoleVariable(string command, T defaultValue, Action<ConsoleCommand, object[]> action) : base(command, action)
         {
             Value = defaultValue;
+        }
+
+        public Type GetValueType()
+        {
+            return typeof(T);
         }
 
         public bool Compare(object val)

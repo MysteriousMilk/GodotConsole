@@ -107,6 +107,42 @@ namespace Godot.Console
         }
 
         /// <summary>
+        /// Retrieves a registered console variable by name.
+        /// </summary>
+        /// <param name="commandName">The name of the variable to retrieve.</param>
+        /// <returns>The variable.</returns>
+        public static IConsoleVariable GetVariable(string cvarName)
+        {
+            if (!Instance.IsCaseSensitive)
+                cvarName = cvarName.ToLower();
+
+            Instance.consoleCommands.TryGetValue(cvarName, out ConsoleCommand cmd);
+            return cmd as IConsoleVariable;
+        }
+
+        /// <summary>
+        /// Retrieves a registered console variable by name.
+        /// </summary>
+        /// <param name="commandName">The name of the variable to retrieve.</param>
+        /// <returns>The variable.</returns>
+        public static ConsoleVariable<T> GetVariable<T>(string cvarName)
+        {
+            if (!Instance.IsCaseSensitive)
+                cvarName = cvarName.ToLower();
+
+            Instance.consoleCommands.TryGetValue(cvarName, out ConsoleCommand cmd);
+
+            var cvar = cmd as IConsoleVariable;
+            if (cvar == null)
+                return null;
+
+            if (typeof(T) != cvar.GetValueType())
+                return null;
+
+            return (ConsoleVariable<T>)cvar;
+        }
+
+        /// <summary>
         /// Registers a command with the console system.
         /// </summary>
         /// <param name="commandName">The command name / text.</param>
@@ -139,6 +175,30 @@ namespace Godot.Console
         /// The first parameter is the command name as a string. The second parameter is 
         /// the passed command arguments.
         /// </param>
+        public static void RegisterVariable<T>(string variableName, T defaultValue)
+        {
+            string cmd = variableName;
+
+            if (!Instance.IsCaseSensitive)
+                cmd = cmd.ToLower();
+
+            if (Instance.consoleCommands.ContainsKey(cmd))
+                throw new InvalidOperationException("Attempt to register console command which has already been registered.");
+
+            ConsoleVariable<T> gdVar = new ConsoleVariable<T>(cmd, defaultValue, null);
+            Instance.consoleCommands.Add(cmd, gdVar);
+        }
+
+        /// <summary>
+        /// Registers a variable with the console system.
+        /// </summary>
+        /// <param name="variableName">The name of the variable.</param>
+        /// <param name="defaultValue">The default value for the variable when the system starts up.</param>
+        /// <param name="commandAction">
+        /// The function delegate to execute when the command is invoked.
+        /// The first parameter is the command name as a string. The second parameter is 
+        /// the passed command arguments.
+        /// </param>
         public static void RegisterVariable<T>(string variableName, T defaultValue,  Action<ConsoleCommand, object[]> commandAction)
         {
             string cmd = variableName;
@@ -151,6 +211,29 @@ namespace Godot.Console
 
             ConsoleVariable<T> gdVar = new ConsoleVariable<T>(cmd, defaultValue, commandAction);
             Instance.consoleCommands.Add(cmd, gdVar);
+        }
+
+        /// <summary>
+        /// Checks if a <see cref="ConsoleVariable{T}"/>'s value matches the given value.
+        /// </summary>
+        /// <typeparam name="T">Generic <see cref="ConsoleVariable{T}"/> type.</typeparam>
+        /// <param name="variableName">The name of the <see cref="ConsoleVariable{T}"/>.</param>
+        /// <param name="val">The value to check equality on.</param>
+        /// <returns>True if the <see cref="ConsoleVariable{T}"/>'s value matches the given value, False if not.</returns>
+        public static bool VariableEquals<T>(string variableName, T val)
+        {
+            string cmd = variableName;
+
+            if (!Instance.IsCaseSensitive)
+                cmd = cmd.ToLower();
+
+            if (!Instance.consoleCommands.ContainsKey(cmd))
+                return false;
+
+            if (Instance.consoleCommands[cmd] is IConsoleVariable cvar)
+                return cvar.Compare(val);
+
+            return false;
         }
 
         /// <summary>
@@ -250,6 +333,63 @@ namespace Godot.Console
             command = Instance.recentCommands[Instance.currentCmdIndex];
 
             return command;
+        }
+
+        public static void MapCommandLineVars()
+        {
+            var parsed = ParseCommandLine(OS.GetCmdlineArgs());
+            
+            foreach (var argPair in parsed)
+            {
+                var command = GetCommand(argPair.Key);
+                if (command != null && command is IConsoleVariable cvar)
+                {
+                    if (string.IsNullOrEmpty(argPair.Value) && cvar.GetValueType() == typeof(bool))
+                        cvar.SetValue(true);
+                    else
+                        cvar.SetValue(argPair.Value);
+                }
+                else
+                {
+                    GodotLogger.LogWarning("Unknown command line argument, " + argPair.Key);
+                }
+            }
+        }
+
+        private static bool IsArg(string arg)
+        {
+            return arg.StartsWith("-") || arg.StartsWith("--");
+        }
+
+        private static bool IsValue(string arg)
+        {
+            return !IsArg(arg);
+        }
+
+        private static Dictionary<string, string> ParseCommandLine(string[] args)
+        {
+            Dictionary<string, string> parsedArgs = new Dictionary<string, string>();
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                if ((args[i].StartsWith("-") && args[i].Length == 2) ||
+                    (args[i].StartsWith("--")))
+                {
+                    string argName = args[i].TrimPrefix("-").TrimPrefix("-");
+
+                    if ((i < args.Length - 1) && IsValue(args[i + 1]))
+                    {
+                        parsedArgs.Add(argName, args[i + 1]);
+                        i++;
+                    }
+                    else
+                    {
+                        parsedArgs.Add(argName, string.Empty);
+                    }
+                }
+            }
+
+            return parsedArgs;
         }
 
         private bool CompareToConsoleVariable(string command, object val)

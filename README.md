@@ -1,7 +1,7 @@
 # GodotConsole
-[![NuGet version (Godot.Logging)](https://img.shields.io/badge/nuget-v1.1.1-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.1.1/)
+[![NuGet version (Godot.Logging)](https://img.shields.io/badge/nuget-v1.2-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.2.0/)
 
-C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the Mono version of Godot (C#). Just drop the code in with your main project and you can start building a console and commands right away. See below for usage examples.
+.C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the .NET version of Godot (C#). Just drop the code in with your main project (or grab the nuget package) and you can start building a console and commands right away. See below for usage examples.
 
 ## Repository
 The main branch [*origin/main*] will be kept in line with the latest release of Godot. Currently it is syncing with the latest Godot 4 beta. There is a release for the Godot 3.5.x line.
@@ -49,4 +49,14 @@ Pass user entered text (for the UI console, for example) to the console backend 
 ```C#
 string cmdLineText = consoleInputLineEdit.Text;
 GodotConsole.ParseCommand(cmdLineText);
+```
+
+Parse the command line into console-tracked variables.
+```C#
+// register some variables that can be accessed from the command line (i.e --connect or --ip 127.0.0.1)
+GodotConsole.RegisterVariable("connect", false);
+GodotConsole.RegisterVariable("ip", "127.0.0.1");
+
+// map the command line to registered variables
+GodotConsole.MapCommandLineVars();
 ```
