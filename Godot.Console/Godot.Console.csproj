@@ -3,8 +3,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Godot.Console</RootNamespace>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
     <Title>Godot Console</Title>
     <Version>$(AssemblyVersion)</Version>
     <PackageProjectUrl></PackageProjectUrl>
@@ -13,6 +13,9 @@
     <PackageTags>Godot;Godot4;gamedev;Game Development;C#</PackageTags>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/MysteriousMilk/GodotConsole</RepositoryUrl>
+    <Authors>MilkMediaProductions</Authors>
+    <Company>MilkMediaProductions</Company>
+    <Description>A console/logging backend for Godot 4 (C#).</Description>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\LICENSE">
@@ -26,6 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" Condition=" '$(Configuration)'!='ExportRelease' " />
-    <PackageReference Include="Godot.Logging" Version="1.1.1" Condition=" '$(Configuration)'=='ExportRelease' " />
+    <PackageReference Include="Godot.Logging" Version="1.1.2" Condition=" '$(Configuration)'=='ExportRelease' " />
   </ItemGroup>
 </Project>
