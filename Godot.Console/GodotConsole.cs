@@ -33,6 +33,7 @@ namespace Godot.Console
         internal int currentCmdIndex = 0;
         internal Dictionary<string, ConsoleCommand> consoleCommands;
         internal MemoryTarget consoleLogTarget;
+        internal bool echo = true;
 
         /// <summary>
         /// Indicates whether or not the commands should be case sensitive.
@@ -237,6 +238,22 @@ namespace Godot.Console
         }
 
         /// <summary>
+        /// Toggles on echo. Inputted commands will be outputted to the console/log.
+        /// </summary>
+        public static void EchoOn()
+        {
+            Instance.echo = true;
+        }
+
+        /// <summary>
+        /// Toggles off echo. Inputted commands will not be outputted to the console/log.
+        /// </summary>
+        public static void EchoOff()
+        {
+            Instance.echo = true;
+        }
+
+        /// <summary>
         /// Invokes a registered command.
         /// </summary>
         /// <param name="commandName">The name/text of the command to invoke.</param>
@@ -247,18 +264,15 @@ namespace Godot.Console
 
             if (command != null)
             {
-                if (args.Length < 1)
-                {
+                if (Instance.echo)
                     Instance.LogConsoleVariable(command.CommandText);
-                    return;
-                }
 
-                if (!Instance.CompareToConsoleVariable(command.CommandText, args[0]))
+                if (args.Length > 0 && !Instance.CompareToConsoleVariable(command.CommandText, args[0]))
                 {
                     Instance.UpdateConsoleVariable(command.CommandText, args[0]);
-
-                    command.Invoke(args);
                 }
+
+                command.Invoke(args);
             }
             else
             {
