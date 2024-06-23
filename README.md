@@ -1,10 +1,7 @@
 # GodotConsole
-[![NuGet version (Godot.Logging)](https://img.shields.io/badge/nuget-v1.2.2-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.2.2/)
+[![NuGet version (Godot.Console)](https://img.shields.io/badge/nuget-v1.2.3-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.2.3/)
 
 C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the .NET version of Godot (C#). Just drop the code in with your main project (or grab the nuget package) and you can start building a console and commands right away. See below for usage examples.
-
-## Repository
-The main branch [*origin/main*] will be kept in line with the latest release of Godot. Currently it is syncing with Godot 4.0.2 or higher.
 
 ## Usage
 Set up an in-memory logger for the console. Here we will use a BBTextTarget so custom formatting can be included when displaying in the UI.

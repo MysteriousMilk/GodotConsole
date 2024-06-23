@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.0.2">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Godot.Console</RootNamespace>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
-    <FileVersion>1.2.2.0</FileVersion>
+    <AssemblyVersion>1.2.3.0</AssemblyVersion>
+    <FileVersion>1.2.3.0</FileVersion>
     <Title>Godot Console</Title>
     <Version>$(AssemblyVersion)</Version>
     <PackageProjectUrl></PackageProjectUrl>
@@ -16,6 +16,8 @@
     <Authors>MilkMediaProductions</Authors>
     <Company>MilkMediaProductions</Company>
     <Description>A console/logging backend for Godot 4 (C#).</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\LICENSE">
@@ -29,6 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" Condition=" '$(Configuration)'!='ExportRelease' " />
-    <PackageReference Include="Godot.Logging" Version="1.1.2" Condition=" '$(Configuration)'=='ExportRelease' " />
+    <PackageReference Include="Godot.Logging" Version="1.1.4" Condition=" '$(Configuration)'=='ExportRelease' " />
   </ItemGroup>
 </Project>
