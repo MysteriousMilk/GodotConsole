@@ -101,5 +101,21 @@ namespace Godot.Console.Tests
             Assert.True(logText.StartsWith(GetMessagePrefix(LogLevel.Warn)));
             Assert.IsTrue(logText.Contains(message));
         }
+
+        [Test]
+        public void RegisterAndUpdateVar()
+        {
+            // registers some vars
+            GodotConsole.RegisterVariable("testDouble", 0.2);
+            GodotConsole.RegisterVariable("testFloat", 0.2f);
+            GodotConsole.RegisterVariable("testInt", 2);
+            GodotConsole.RegisterVariable("testBool", false);
+
+            // update the vars
+            GodotConsole.RegisterVariable("testDouble", 0.2);
+            GodotConsole.RegisterVariable("testFloat", 0.2f);
+            GodotConsole.RegisterVariable("testInt", 2);
+            GodotConsole.RegisterVariable("testBool", false);
+        }
     }
 }
