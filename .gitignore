@@ -1,2 +1,4 @@
 .vs/
 .godot/
+bin/
+obj/
