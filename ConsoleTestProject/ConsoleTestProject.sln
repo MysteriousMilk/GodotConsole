@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTestProject", "ConsoleTestProject.csproj", "{CCCD912F-D4EA-4841-8E94-7D93566D4120}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Godot.Logging", "..\Godot.Logging\Godot.Logging\Godot.Logging.csproj", "{CD876D2B-833C-4ED6-A339-6C8266F65046}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Godot.Console", "..\Godot.Console\Godot.Console.csproj", "{62495D17-2E2C-40F1-B839-B3EA7C908898}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{CCCD912F-D4EA-4841-8E94-7D93566D4120}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{CD876D2B-833C-4ED6-A339-6C8266F65046}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{62495D17-2E2C-40F1-B839-B3EA7C908898}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

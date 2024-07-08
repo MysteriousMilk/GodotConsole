@@ -1,10 +1,12 @@
-﻿<Project Sdk="Godot.NET.Sdk/4.0.2">
+﻿<Project Sdk="Godot.NET.Sdk/4.2.2">
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>Godot.Console</RootNamespace>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
-    <FileVersion>1.2.3.0</FileVersion>
+    <LangVersion>11.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <Title>Godot Console</Title>
     <Version>$(AssemblyVersion)</Version>
     <PackageProjectUrl></PackageProjectUrl>
@@ -31,6 +33,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Godot.Logging\Godot.Logging\Godot.Logging.csproj" Condition=" '$(Configuration)'!='ExportRelease' " />
-    <PackageReference Include="Godot.Logging" Version="1.1.4" Condition=" '$(Configuration)'=='ExportRelease' " />
+    <PackageReference Include="Godot.Logging" Version="1.2" Condition=" '$(Configuration)'=='ExportRelease' " />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Godot.SourceGenerators" Version="4.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="GodotSharp" Version="4.2.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="GodotSharpEditor" Version="4.2.2" />
   </ItemGroup>
 </Project>
