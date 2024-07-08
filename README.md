@@ -1,5 +1,5 @@
 # GodotConsole
-[![NuGet version (Godot.Console)](https://img.shields.io/badge/nuget-v2.0-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/2.0/)\
+[![NuGet version (Godot.Console)](https://img.shields.io/badge/nuget-v2.0.0-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/2.0.0/)\
 [![NuGet version (Godot.Console)](https://img.shields.io/badge/nuget-v1.2.3-blue?style=flat-square)](https://www.nuget.org/packages/Godot.Console/1.2.3/)
 
 C# console backend for Godot. This console supports tying functions to console commands and also tracking of console variables. This is intended to work with the .NET version of Godot (C#). Just drop the code in with your main project (or grab the nuget package) and you can start building a console and commands right away. See below for usage examples.
